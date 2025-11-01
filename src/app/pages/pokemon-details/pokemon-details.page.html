@@ -1,0 +1,64 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title class="ion-text-capitalize">{{ pokemon?.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" *ngIf="pokemon">
+  <div class="ficha-container">
+    <img [src]="pokemon.sprite" alt="{{ pokemon.name }}" class="sprite" />
+
+    <ion-card class="ficha-card">
+      <ion-card-content>
+        <h2 class="nombre">{{ pokemon.name }}</h2>
+
+        <div class="info-row">
+          <div class="info-label">Tipo</div>
+          <div class="info-value">
+            <img [src]="'assets/img/' + pokemon.type1 + '.gif'" class="tipo-icon" />
+            <img *ngIf="pokemon.type2" [src]="'assets/img/' + pokemon.type2 + '.gif'" class="tipo-icon" />
+          </div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-label">Peso</div>
+          <div class="info-value">{{ pokemon.weight }}</div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-label">Altura</div>
+          <div class="info-value">{{ pokemon.height }}</div>
+        </div>
+
+        <div class="info-section">
+          <h3>Habilidades</h3>
+          <div class="info-row">
+            <div class="info-label">Principales</div>
+            <div class="info-value">{{ pokemon.abilities}}</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Oculta</div>
+            <div class="info-value">{{ pokemon.hiddenAbility || '—' }}</div>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <h3>Estadísticas</h3>
+          <div *ngFor="let stat of pokemon.stats" class="stat-row">
+            <div class="stat-label">{{ formatStatName(stat.name) }}</div>
+            <div class="stat-bar">
+              <div class="stat-fill" [style.width.%]="stat.base_stat"></div>
+            </div>
+            <div class="stat-value">{{ stat.base_stat }}</div>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+<ion-fab slot="fixed" vertical="bottom" horizontal="end" style="margin-bottom: 2rem;">
+  <ion-fab-button (click)="goBack()">
+    <ion-icon name="close-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+  </div>
+</ion-content>
